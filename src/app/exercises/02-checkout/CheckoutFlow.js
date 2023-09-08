@@ -3,11 +3,15 @@ import React from 'react';
 
 import CartTable from './CartTable';
 
-function CheckoutFlow({
-  items,
-  taxRate,
-  handleDeleteItem,
-}) {
+function CheckoutFlow({ items, taxRate, handleDeleteItem, status }) {
+  if (status === 'loading') {
+    return (
+      <div className="checkout-flow empty">
+        <p>Loading Cart...</p>
+      </div>
+    );
+  }
+
   if (items.length === 0) {
     return (
       <div className="checkout-flow empty">
@@ -27,10 +31,7 @@ function CheckoutFlow({
 
   return (
     <div className="checkout-flow">
-      <CartTable
-        items={items}
-        handleDeleteItem={handleDeleteItem}
-      />
+      <CartTable items={items} handleDeleteItem={handleDeleteItem} />
 
       <table className="checkout-totals">
         <tbody>
